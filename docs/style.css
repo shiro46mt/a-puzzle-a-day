@@ -6,8 +6,8 @@
   --main-dark: #ffdf5e;
   --accent: #d9534f;
   --main-width: 400px;
-  --board-size: 350px;
-  --cell-size: 50px;
+  --board-size: 280px;
+  --cell-size: 40px;
 }
 
 body {
@@ -39,7 +39,7 @@ body {
 }
 
 .board-cell {
-  padding: 14px 0 0;
+  padding: 8px 0 0;
   border: 1px solid #333;
   text-align: center;
 }
@@ -49,10 +49,11 @@ body {
 }
 .board-cell.today {
   background-color: var(--accent);
+  color: var(--main-bg);
 }
 
 .ground {
-  width: var(--board-size);
+  margin: 10px auto 0;
   display: flex;
   flex-wrap: wrap;
 }

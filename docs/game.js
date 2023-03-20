@@ -1,5 +1,5 @@
-const cellSize = 50;
-const pieceSize = 99;
+const cellSize = 40;
+const pieceSize = 79;
 
 var puzzlePieces = document.querySelectorAll('.puzzle-piece');
 var puzzleCells = document.querySelectorAll('.puzzle-cell:not(.null)');
@@ -13,6 +13,7 @@ var isClick = false;
 
 function onTouchStart(event) {
   if (event.target.parentElement.classList.contains('puzzle-piece')) {
+    event.preventDefault();
     activePiece = event.target.parentElement;
     activePiece.style.zIndex = 1000;
     // タッチイベントとマウスイベントを区別する
@@ -38,6 +39,7 @@ function onTouchMove(event) {
 
 function onTouchEnd(event) {
   if (activePiece) {
+    event.preventDefault();
     activePiece.style.zIndex = 0;
     var bounds = board.getBoundingClientRect();
     // タッチイベントとマウスイベントを区別する
