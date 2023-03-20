@@ -1,0 +1,121 @@
+:root {
+  --main-text: #333;
+  --sub-text: #999;
+  --main-bg: #fff;
+  --main-light: #ffeead;
+  --main-dark: #ffdf5e;
+  --accent: #d9534f;
+  --main-width: 400px;
+  --board-size: 350px;
+  --cell-size: 50px;
+}
+
+body {
+  font-family: 'Kosugi Maru', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  color: var(--main-text);
+  background-color: var(--main-bg);
+
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom:0px;
+}
+
+.main-content {
+  margin: 0px auto;
+	max-width: var(--main-width);
+}
+
+.board {
+  margin: 10px auto 0;
+  width: var(--board-size);
+  height: var(--board-size);
+  position: relative;
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.board-cell {
+  padding: 14px 0 0;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.board-cell.null {
+  background-color: #999;
+}
+.board-cell.today {
+  background-color: var(--accent);
+}
+
+.ground {
+  width: var(--board-size);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ground-item {
+  width: 25%;
+  height: 100px;
+}
+
+.puzzle-piece {
+  display: grid;
+  gap: 0;
+  position: absolute;
+  transform: scale(0.5);
+  transition: transform 200ms 0s ease;
+}
+
+.puzzle-piece#piece1, .puzzle-piece#piece2, .puzzle-piece#piece3 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.puzzle-piece#piece4, .puzzle-piece#piece5 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.puzzle-piece#piece6, .puzzle-piece#piece7, .puzzle-piece#piece8{
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.puzzle-cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  opacity: 0.7;
+  border: none;
+  user-select: none;
+  touch-action: none;
+}
+
+#piece1 .puzzle-cell {
+  background-color: #66c3a6;
+}
+#piece2 .puzzle-cell {
+  background-color: #fd8e62;
+}
+#piece3 .puzzle-cell {
+  background-color: #8ea1cc;
+}
+#piece4 .puzzle-cell {
+  background-color: #e88bc4;
+}
+#piece5 .puzzle-cell {
+  background-color: #a7d954;
+}
+#piece6 .puzzle-cell {
+  background-color: #ffda2f;
+}
+#piece7 .puzzle-cell {
+  background-color: #e6c595;
+}
+#piece8 .puzzle-cell {
+  background-color: #b4b4b4;
+}
+
+.puzzle-cell.null {
+  background-color: #fff0 !important;
+}
+
+
