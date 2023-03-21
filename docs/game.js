@@ -64,13 +64,13 @@ function onTouchEnd(event) {
           bounds.top < touch.pageY &&
           bounds.bottom > touch.pageY) {
 
-        var rotateOffset = 0;
+        var posOffset = -7;
         if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
             ["90", "270"].includes(activePiece.getAttribute("data-rotation"))) {
-          rotateOffset = 25;
+          posOffset = 13;
         }
-        activePiece.style.left = floor(touch.pageX - dx, bounds.left) + rotateOffset + 'px';
-        activePiece.style.top = floor(touch.pageY - dy, bounds.top) + rotateOffset + 'px';
+        activePiece.style.left = floor(touch.pageX - dx, bounds.left) + posOffset + 'px';
+        activePiece.style.top = floor(touch.pageY - dy, bounds.top) + posOffset + 'px';
         activePiece.setAttribute("data-scale", 1);
       } else {
         activePiece.style.left = '';
@@ -115,7 +115,7 @@ function setStyle(element) {
 }
 
 function floor(x, origin) {
-  return Math.floor((x - origin + cellSize / 2) / cellSize) * cellSize + origin - 8;
+  return Math.floor((x - origin + cellSize / 2) / cellSize) * cellSize + origin;
 }
 
 for (var i = 0; i < puzzleCells.length; i++) {
