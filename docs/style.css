@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: 'Kosugi Maru', "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-family: "Zen Maru Gothic", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
   color: var(--main-text);
   background-color: var(--main-bg);
 
@@ -29,7 +29,7 @@ body {
 h1 {
   font-size: 1.5em;
   text-align: center;
-  margin: 20px 10px 0;
+  margin: 10px 10px 0;
 }
 
 .dot-line {
@@ -44,12 +44,12 @@ h1 {
 
 .subtitle {
   text-align: center;
-  margin: 10px 0;
+  margin: 0;
   float: none;
 }
 
 .links {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-right: 5%;
   float: right;
   white-space: nowrap;
@@ -63,6 +63,6 @@ h1 {
 #footer {
   font-size: 0.8em;
   text-align: center;
-  margin: 20px 10px;
+  margin: 10px;
 }
 

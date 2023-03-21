@@ -93,6 +93,7 @@ function init() {
 
   document.querySelector('#m' + m).classList.add("today");
   document.querySelector('#d' + d).classList.add("today");
+  document.querySelector('#today').textContent = m + "/" + d;
 }
 
 function resetPuzzlePiece() {
