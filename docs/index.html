@@ -19,13 +19,23 @@
 </head>
 <body>
   <div class="main-content">
-    <h1>A-Puzzle-A-Day</h1>
-    <div class="dot-line"></div>
-
     <div class="links">
       <a onclick="resetPuzzlePiece();"><i class="fa-solid fa-rotate-right fa-xl"></i></a>
     </div>
-    <div class="subtitle">(β版) <span id="today"></span></div>
+    <h1>A-Puzzle-A-Day</h1>
+    <div class="dot-line"></div>
+
+    <div class="overlay" id="overlay-info">
+      <div class="overlay-window overlay-window-info">
+        <h2>遊び方</h2>
+        <table class="info-table">
+          <tr><th>1</th><td>赤色の今日の日付のマスを空けてピースをはめよう！</td></tr>
+          <tr><th>2</th><td>ピースをタップすると回転・反転します</td></tr>
+        </table>
+        <div class="author">作成: <a href="https://twitter.com/SHIRO46_app" target="_blank">@SHIRO46_app</a></div>
+        <div class="close-icon"><i class="fa-solid fa-xmark"></i></div>
+      </div>
+    </div>
 
     <div class="board">
       <div class="board-cell" id="m1">Jan</div>
@@ -173,8 +183,13 @@
       </div>
     </div>
 
+    <div id="footer-menu">
+      |
+      <a onclick="openInfo();">遊び方</a> |
+    </div>
     <div id="footer">&copy;2023 SHIRO</div>
 
+    <script src="style.js"></script>
     <script src="main.js"></script>
   </div>
 </body>

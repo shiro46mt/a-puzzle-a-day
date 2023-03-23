@@ -42,14 +42,8 @@ h1 {
   margin: 0 5%;
 }
 
-.subtitle {
-  text-align: center;
-  margin: 0;
-  float: none;
-}
-
 .links {
-  margin-top: 0px;
+  margin-top: 10px;
   margin-right: 5%;
   float: right;
   white-space: nowrap;
@@ -59,8 +53,78 @@ h1 {
   color: var(--sub-text);
 }
 
+/*** overlay ***/
+.overlay {
+  position: fixed;
+  top: 0rem;
+  bottom: 0rem;
+  left: 0rem;
+  right: 0rem;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.75);
+  align-items: center;
+  transition: opacity .5s;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.overlay-window {
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--main-bg);
+  text-align: center;
+  position: relative;
+}
+
+.overlay-window h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.close-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: var(--sub-text);
+}
+
+/* info */
+.overlay-window.overlay-window-info{
+  height: 300px;
+}
+
+.info-table {
+  display: inline-block;
+  text-align: left;
+  border-spacing: 10px;
+  margin: 0;
+}
+
+.info-table th {
+  font-size: 1.5em;
+  color: var(--accent);
+  vertical-align: top;
+}
+
+.author {
+  font-size: 0.8em;
+  text-align: center;
+  margin: 10px 0;
+}
+
 /*** footer ***/
-#footer {
+#footer, #footer-menu {
   font-size: 0.8em;
   text-align: center;
   margin: 10px;

@@ -1,6 +1,7 @@
 :root {
   --board-size: 280px;
   --cell-size: 40px;
+  --board-color: #666;
 }
 
 /*** board ***/
@@ -11,7 +12,7 @@
   width: var(--board-size);
   height: var(--board-size);
   position: relative;
-  border: 1px solid #000;
+  border: 1px solid var(--board-color);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 0;
@@ -19,12 +20,12 @@
 
 .board-cell {
   padding: 8px 0 0;
-  border: 1px solid #333;
+  border: 1px solid var(--board-color);
   text-align: center;
 }
 
 .board-cell.null {
-  background-color: #999;
+  background-color: var(--board-color);
 }
 .board-cell.today {
   background-color: var(--accent);
