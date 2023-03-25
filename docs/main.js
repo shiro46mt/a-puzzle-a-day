@@ -49,14 +49,17 @@ function onTouchEnd(event) {
       var currentReverse = parseInt(activePiece.getAttribute("data-reverse") || "1");
       var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
 
-      // 角度を90度回転させる
-      // 角度が0度になった場合、左右反転する
-      var newRotation = (currentRotation + 90) % 360;
-      var newReverse = currentReverse;
-      if (newRotation == 0) newReverse *= -1;
+      if ((currentRotation == 270 && currentReverse == 1) ||
+          (currentRotation == 0 && currentReverse == -1)) {
+        // 左右反転する
+        var newReverse = currentReverse * -1;
+        activePiece.setAttribute("data-reverse", newReverse);
+      } else {
+        // 角度を90度回転させる
+        var newRotation = (currentRotation + 90 * currentReverse);
+        activePiece.setAttribute("data-rotation", newRotation);
+      }
 
-      activePiece.setAttribute("data-rotation", newRotation);
-      activePiece.setAttribute("data-reverse", newReverse);
     } else {
       // ドラッグ -> 移動
       if (bounds.left < touch.pageX &&
@@ -64,9 +67,10 @@ function onTouchEnd(event) {
           bounds.top < touch.pageY &&
           bounds.bottom > touch.pageY) {
 
+        var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
         var posOffset = -7;
         if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
-            ["90", "270"].includes(activePiece.getAttribute("data-rotation"))) {
+            currentRotation % 180 == 90) {
           posOffset = 13;
         }
         activePiece.style.left = floor(touch.pageX - dx, bounds.left) + posOffset + 'px';
