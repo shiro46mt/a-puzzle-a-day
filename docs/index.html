@@ -19,11 +19,27 @@
 </head>
 <body>
   <div class="main-content">
-    <div class="links">
-      <a onclick="resetPuzzlePiece();"><i class="fa-solid fa-rotate-right fa-xl"></i></a>
-    </div>
     <h1>A-Puzzle-A-Day</h1>
     <div class="dot-line"></div>
+
+    <div class="links">
+      <a onclick="resetPuzzlePiece();" class="fa-stack">
+        <i class="fa-solid fa-circle fa-stack-2x"></i>
+        <i class="fa-solid fa-rotate-right fa-stack-1x fa-inverse"></i>
+      </a>
+    </div>
+
+    <div class='switch'>
+      <input id='js_mode_toggle' type='checkbox'/>
+        <label class='switch-mode' for='js_mode_toggle' id='js_rotate'>
+          <span id='switch-mode-dark' title='ダークモード'>
+            <svg class='feather feather-moon' fill='none' height='24' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>
+          </span>
+          <span id='switch-mode-light' title='ライトモード'>
+            <svg class='feather feather-sun' fill='none' height='24' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><circle cx='12' cy='12' r='5'/><line x1='12' x2='12' y1='1' y2='3'/><line x1='12' x2='12' y1='21' y2='23'/><line x1='4.22' x2='5.64' y1='4.22' y2='5.64'/><line x1='18.36' x2='19.78' y1='18.36' y2='19.78'/><line x1='1' x2='3' y1='12' y2='12'/><line x1='21' x2='23' y1='12' y2='12'/><line x1='4.22' x2='5.64' y1='19.78' y2='18.36'/><line x1='18.36' x2='19.78' y1='5.64' y2='4.22'/></svg>
+        </span>
+      </label>
+    </div>
 
     <div class="overlay" id="overlay-info">
       <div class="overlay-window overlay-window-info">
@@ -32,153 +48,155 @@
           <tr><th>1</th><td>赤色の今日の日付のマスを空けてピースをはめよう！</td></tr>
           <tr><th>2</th><td>ピースをタップすると回転・反転します</td></tr>
         </table>
-        <div class="author">作成: <a href="https://twitter.com/SHIRO46_app" target="_blank">@SHIRO46_app</a></div>
+        <div class="author">作成: <a href="https://twitter.com/shiro46mt" target="_blank">@shiro46mt</a></div>
         <div class="close-icon"><i class="fa-solid fa-xmark"></i></div>
       </div>
     </div>
 
-    <div class="board">
-      <div class="board-cell" id="m1">Jan</div>
-      <div class="board-cell" id="m2">Feb</div>
-      <div class="board-cell" id="m3">Mar</div>
-      <div class="board-cell" id="m4">Apr</div>
-      <div class="board-cell" id="m5">May</div>
-      <div class="board-cell" id="m6">Jun</div>
-      <div class="board-cell null"></div>
-      <div class="board-cell" id="m7">Jul</div>
-      <div class="board-cell" id="m8">Aug</div>
-      <div class="board-cell" id="m9">Sep</div>
-      <div class="board-cell" id="m10">Oct</div>
-      <div class="board-cell" id="m11">Nov</div>
-      <div class="board-cell" id="m12">Dec</div>
-      <div class="board-cell null"></div>
-      <div class="board-cell" id="d1">1</div>
-      <div class="board-cell" id="d2">2</div>
-      <div class="board-cell" id="d3">3</div>
-      <div class="board-cell" id="d4">4</div>
-      <div class="board-cell" id="d5">5</div>
-      <div class="board-cell" id="d6">6</div>
-      <div class="board-cell" id="d7">7</div>
-      <div class="board-cell" id="d8">8</div>
-      <div class="board-cell" id="d9">9</div>
-      <div class="board-cell" id="d10">10</div>
-      <div class="board-cell" id="d11">11</div>
-      <div class="board-cell" id="d12">12</div>
-      <div class="board-cell" id="d13">13</div>
-      <div class="board-cell" id="d14">14</div>
-      <div class="board-cell" id="d15">15</div>
-      <div class="board-cell" id="d16">16</div>
-      <div class="board-cell" id="d17">17</div>
-      <div class="board-cell" id="d18">18</div>
-      <div class="board-cell" id="d19">19</div>
-      <div class="board-cell" id="d20">20</div>
-      <div class="board-cell" id="d21">21</div>
-      <div class="board-cell" id="d22">22</div>
-      <div class="board-cell" id="d23">23</div>
-      <div class="board-cell" id="d24">24</div>
-      <div class="board-cell" id="d25">25</div>
-      <div class="board-cell" id="d26">26</div>
-      <div class="board-cell" id="d27">27</div>
-      <div class="board-cell" id="d28">28</div>
-      <div class="board-cell" id="d29">29</div>
-      <div class="board-cell" id="d30">30</div>
-      <div class="board-cell" id="d31">31</div>
-      <div class="board-cell null"></div>
-      <div class="board-cell null"></div>
-      <div class="board-cell null"></div>
-      <div class="board-cell null"></div>
-    </div>
-    <div class="ground">
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece1">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-        </div>
+    <div class="board-wrapper">
+      <div class="board">
+        <div class="board-cell" id="m1">Jan</div>
+        <div class="board-cell" id="m2">Feb</div>
+        <div class="board-cell" id="m3">Mar</div>
+        <div class="board-cell" id="m4">Apr</div>
+        <div class="board-cell" id="m5">May</div>
+        <div class="board-cell" id="m6">Jun</div>
+        <div class="board-cell null"></div>
+        <div class="board-cell" id="m7">Jul</div>
+        <div class="board-cell" id="m8">Aug</div>
+        <div class="board-cell" id="m9">Sep</div>
+        <div class="board-cell" id="m10">Oct</div>
+        <div class="board-cell" id="m11">Nov</div>
+        <div class="board-cell" id="m12">Dec</div>
+        <div class="board-cell null"></div>
+        <div class="board-cell" id="d1">1</div>
+        <div class="board-cell" id="d2">2</div>
+        <div class="board-cell" id="d3">3</div>
+        <div class="board-cell" id="d4">4</div>
+        <div class="board-cell" id="d5">5</div>
+        <div class="board-cell" id="d6">6</div>
+        <div class="board-cell" id="d7">7</div>
+        <div class="board-cell" id="d8">8</div>
+        <div class="board-cell" id="d9">9</div>
+        <div class="board-cell" id="d10">10</div>
+        <div class="board-cell" id="d11">11</div>
+        <div class="board-cell" id="d12">12</div>
+        <div class="board-cell" id="d13">13</div>
+        <div class="board-cell" id="d14">14</div>
+        <div class="board-cell" id="d15">15</div>
+        <div class="board-cell" id="d16">16</div>
+        <div class="board-cell" id="d17">17</div>
+        <div class="board-cell" id="d18">18</div>
+        <div class="board-cell" id="d19">19</div>
+        <div class="board-cell" id="d20">20</div>
+        <div class="board-cell" id="d21">21</div>
+        <div class="board-cell" id="d22">22</div>
+        <div class="board-cell" id="d23">23</div>
+        <div class="board-cell" id="d24">24</div>
+        <div class="board-cell" id="d25">25</div>
+        <div class="board-cell" id="d26">26</div>
+        <div class="board-cell" id="d27">27</div>
+        <div class="board-cell" id="d28">28</div>
+        <div class="board-cell" id="d29">29</div>
+        <div class="board-cell" id="d30">30</div>
+        <div class="board-cell" id="d31">31</div>
+        <div class="board-cell null"></div>
+        <div class="board-cell null"></div>
+        <div class="board-cell null"></div>
+        <div class="board-cell null"></div>
       </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece2">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
+      <div class="ground">
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece1">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece3">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece2">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece4">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell null"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece3">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece5">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece4">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell null"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece6">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece5">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece7">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell null"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece6">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+          </div>
         </div>
-      </div>
-      <div class="ground-item">
-        <div class="puzzle-piece" id="piece8">
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
-          <div class="puzzle-cell"></div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece7">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell null"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+          </div>
+        </div>
+        <div class="ground-item">
+          <div class="puzzle-piece" id="piece8">
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+            <div class="puzzle-cell"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -186,6 +204,7 @@
     <div id="footer-menu">
       |
       <a onclick="openInfo();">遊び方</a> |
+      <a href="https://www.dragonfjord.com/product/a-puzzle-a-day/?_amc-currency=JPY" target="_blank">原案 from DragonFjord</a> |
     </div>
     <div id="footer">&copy;2023 SHIRO</div>
 

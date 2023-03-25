@@ -2,16 +2,21 @@
   --main-text: #333;
   --sub-text: #999;
   --main-bg: #fff;
-  --main-light: #ffeead;
-  --main-dark: #ffdf5e;
+  --theme-light: #ffeead;
   --accent: #d9534f;
   --main-width: 400px;
+}
+:root[data-theme-mode='dark'] {
+  --main-text: #eee;
+  --main-bg: #222;
+  --accent: #ffdf5e;
 }
 
 body {
   font-family: "Zen Maru Gothic", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
   color: var(--main-text);
   background-color: var(--main-bg);
+  transition: color 200ms, background-color 200ms;
 
   position: fixed;
   left: 0px;
@@ -33,7 +38,7 @@ h1 {
 }
 
 .dot-line {
-  background: radial-gradient(circle farthest-side, var(--main-light), var(--main-light) 60%, transparent 60%, transparent);
+  background: radial-gradient(circle farthest-side, var(--theme-light), var(--theme-light) 60%, transparent 60%, transparent);
   background-size: 6px 6px;
   content: '';
   display: inline-block;
@@ -43,14 +48,45 @@ h1 {
 }
 
 .links {
-  margin-top: 10px;
-  margin-right: 5%;
-  float: right;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
   white-space: nowrap;
 }
 .links a {
   text-decoration: none;
   color: var(--sub-text);
+}
+
+/*** mode switch ***/
+input[type="checkbox"] {
+  display: none;
+}
+.switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.switch label {
+  cursor: pointer;
+}
+.switch svg {
+  height: 24px;
+  width: 24px;
+  color: var(--color);
+  transition: 200ms;
+}
+#switch-mode-dark svg {
+  transform: scale(-1, 1);
+}
+#switch-mode-dark {
+  display: none;
+}
+#js_mode_toggle:checked ~ label #switch-mode-dark {
+  display: initial;
+}
+#js_mode_toggle:checked ~ label #switch-mode-light {
+  display: none;
 }
 
 /*** overlay ***/
@@ -101,7 +137,7 @@ h1 {
 
 /* info */
 .overlay-window.overlay-window-info{
-  height: 300px;
+  height: 240px;
 }
 
 .info-table {
@@ -130,3 +166,7 @@ h1 {
   margin: 10px;
 }
 
+#footer-menu a {
+  text-decoration: none;
+  color: var(--sub-text);
+}
