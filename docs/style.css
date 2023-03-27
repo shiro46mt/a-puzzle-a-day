@@ -49,7 +49,7 @@ h1 {
 
 .links {
   position: absolute;
-  bottom: 20px;
+  top: 600px;
   right: 20px;
   white-space: nowrap;
 }
