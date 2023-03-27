@@ -137,7 +137,7 @@ input[type="checkbox"] {
 
 /* info */
 .overlay-window.overlay-window-info{
-  height: 240px;
+  height: 260px;
 }
 
 .info-table {
@@ -157,6 +157,33 @@ input[type="checkbox"] {
   font-size: 0.8em;
   text-align: center;
   margin: 10px 0;
+}
+
+/*** sns share ***/
+.sns-share {
+  text-align: center;
+  margin-top: 5px;
+}
+.sns-share a {
+  display: inline-block;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0 5px;
+}
+
+.fa-brands, .fa-solid{
+  font-size: 24px;
+  padding: 0;
+}
+.fa-square-twitter {
+  color: #1b95e0;
+}
+.fa-square-facebook {
+  color: #3b5998;
+}
+.fa-line {
+  color: #06C755;
 }
 
 /*** footer ***/

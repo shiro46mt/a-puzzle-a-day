@@ -48,7 +48,7 @@
   height: 120px;
 }
 
-#footer, #footer-menu {
+#footer, #footer-menu, #footer-sns-share {
   transform: translateY(-20px);
 }
 
