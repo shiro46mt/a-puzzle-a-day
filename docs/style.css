@@ -52,6 +52,7 @@ h1 {
   top: 570px;
   right: 20px;
   white-space: nowrap;
+  z-index: 100;
 }
 .links a {
   text-decoration: none;
@@ -66,6 +67,7 @@ input[type="checkbox"] {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 100;
 }
 .switch label {
   cursor: pointer;
