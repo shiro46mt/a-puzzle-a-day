@@ -49,7 +49,7 @@
 
 .ground-item {
   width: 25%;
-  height: 120px;
+  height: 100px;
 }
 
 #footer, #footer-menu, #footer-sns-share {
@@ -61,7 +61,7 @@
   display: grid;
   gap: 0;
   position: absolute;
-  transform: scale(0.5);
+  transform: scale(0.4);
   transition: transform 200ms 0s ease;
   pointer-events: none;
 }

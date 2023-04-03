@@ -1,5 +1,6 @@
 const cellSize = 40;
 const pieceSize = 79;
+const groundPieceSizeRatio = 0.4;
 
 var puzzlePieces = document.querySelectorAll('.puzzle-piece');
 var puzzleCells = document.querySelectorAll('.puzzle-cell:not(.null)');
@@ -79,7 +80,7 @@ function onTouchEnd(event) {
       } else {
         activePiece.style.left = '';
         activePiece.style.top = '';
-        activePiece.setAttribute("data-scale", 0.5);
+        activePiece.setAttribute("data-scale", groundPieceSizeRatio);
       }
     }
     setStyle(activePiece);
@@ -103,7 +104,7 @@ function resetPuzzlePiece() {
   for (var i = 0; i < puzzlePieces.length; i++) {
     puzzlePieces[i].style.left = '';
     puzzlePieces[i].style.top = '';
-    puzzlePieces[i].setAttribute("data-scale", 0.5);
+    puzzlePieces[i].setAttribute("data-scale", groundPieceSizeRatio);
     puzzlePieces[i].setAttribute("data-rotation", 0);
     puzzlePieces[i].setAttribute("data-reverse", 1);
     setStyle(puzzlePieces[i]);
