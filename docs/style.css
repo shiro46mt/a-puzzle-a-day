@@ -30,6 +30,22 @@ body {
 	max-width: var(--main-width);
 }
 
+.sub-content {
+  margin: 0px auto;
+	max-width: var(--main-width);
+  pointer-events: none;
+  z-index: 10;
+
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 5px;
+  bottom: 50px;
+}
+.sub-content div {
+  pointer-events: all;
+}
+
 /*** header ***/
 h1 {
   font-size: 1.5em;
@@ -98,7 +114,7 @@ input[type="checkbox"] {
   bottom: 0rem;
   left: 0rem;
   right: 0rem;
-  z-index: 10;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0.75);
   align-items: center;
   transition: opacity .5s;
