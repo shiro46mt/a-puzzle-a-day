@@ -5,6 +5,8 @@ infoWindow.addEventListener("click", function (e) {
   infoWindow.classList.remove("is-open");
 });
 
+screen.orientation.lock("portrait-primary");
+
 function openInfo() {
   infoWindow.classList.add("is-open");
 }
