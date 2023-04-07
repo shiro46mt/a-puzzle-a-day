@@ -161,6 +161,11 @@ input[type="checkbox"] {
   margin: 10px 0;
 }
 
+.author a {
+  text-decoration: none;
+  color: var(--main-text);
+}
+
 /*** sns share ***/
 .sns-share {
   text-align: center;
@@ -171,7 +176,7 @@ input[type="checkbox"] {
   text-decoration: none;
   white-space: nowrap;
   vertical-align: middle;
-  padding: 0 5px;
+  padding: 0;
 }
 
 .fa-brands, .fa-solid{
@@ -196,6 +201,7 @@ input[type="checkbox"] {
   font-size: 0.8em;
   text-align: center;
   margin: 10px;
+  color: var(--sub-text);
 }
 
 #footer-menu a {
