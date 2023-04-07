@@ -155,7 +155,7 @@ input[type="checkbox"] {
 
 /* info */
 .overlay-window.overlay-window-info{
-  height: 260px;
+  height: 290px;
 }
 
 .info-table {
@@ -179,7 +179,7 @@ input[type="checkbox"] {
 
 .author a {
   text-decoration: none;
-  color: var(--main-text);
+  /* color: var(--main-text); */
 }
 
 /*** sns share ***/
