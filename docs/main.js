@@ -8,7 +8,7 @@ var puzzleCells = document.querySelectorAll('.puzzle-cell:not(.null)');
 var board = document.querySelector('.board');
 
 var activePiece = null;
-var dx = 0;
+var dx = 0; // piece の左上を原点とした, クリック位置
 var dy = 0;
 var isClick = false;
 
@@ -27,7 +27,6 @@ function onTouchStart(event) {
 
 function onTouchMove(event) {
   if (activePiece) {
-    event.preventDefault();
     // タッチイベントとマウスイベントを区別する
     const touch = event.type === 'touchmove' ? event.touches[0] : event;
     activePiece.style.left = touch.pageX - dx + 'px';
@@ -53,11 +52,13 @@ function onTouchEnd(event) {
       if ((currentRotation == 270 && currentReverse == 1) ||
           (currentRotation == 0 && currentReverse == -1)) {
         // 左右反転する
+        var newRotation = currentRotation;
         var newReverse = currentReverse * -1;
         activePiece.setAttribute("data-reverse", newReverse);
       } else {
         // 角度を90度回転させる
         var newRotation = (currentRotation + 90 * currentReverse);
+        var newReverse = currentReverse;
         activePiece.setAttribute("data-rotation", newRotation);
       }
 
@@ -69,17 +70,22 @@ function onTouchEnd(event) {
           bounds.bottom > touch.pageY) {
 
         var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
-        var posOffset = -7;
+        // 2x3 のpieceでは回転時に半マスずれるため、offsetを設定する
+        var posOffset = 0;
         if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
             currentRotation % 180 == 90) {
-          posOffset = 13;
+          posOffset = cellSize / 2;
         }
-        activePiece.style.left = floor(touch.pageX - dx, bounds.left) + posOffset + 'px';
-        activePiece.style.top = floor(touch.pageY - dy, bounds.top) + posOffset + 'px';
+        var j = Math.floor((touch.pageX - dx - bounds.left + (cellSize / 2) + posOffset) / cellSize);
+        var i = Math.floor((touch.pageY - dy - bounds.top + (cellSize / 2) - posOffset) / cellSize);
+        activePiece.style.left = j * cellSize + bounds.left - posOffset + 1 + 'px'; // 1px はborderの分
+        activePiece.style.top = i * cellSize + bounds.top + posOffset + 1 + 'px';
+        activePiece.setAttribute("data-pos", (i+1)*8 + (j+1));
         activePiece.setAttribute("data-scale", 1);
       } else {
         activePiece.style.left = '';
         activePiece.style.top = '';
+        activePiece.setAttribute("data-pos", 0);
         activePiece.setAttribute("data-scale", groundPieceSizeRatio);
       }
     }
@@ -107,6 +113,7 @@ function resetPuzzlePiece() {
     puzzlePieces[i].setAttribute("data-scale", groundPieceSizeRatio);
     puzzlePieces[i].setAttribute("data-rotation", 0);
     puzzlePieces[i].setAttribute("data-reverse", 1);
+    puzzlePieces[i].setAttribute("data-pos", 0);
     setStyle(puzzlePieces[i]);
   }
 }
@@ -123,6 +130,7 @@ function floor(x, origin) {
   return Math.floor((x - origin + cellSize / 2) / cellSize) * cellSize + origin;
 }
 
+/*** event listener ***/
 for (var i = 0; i < puzzleCells.length; i++) {
   puzzleCells[i].addEventListener('touchstart', onTouchStart, false);
   puzzleCells[i].addEventListener('mousedown', onTouchStart, false);
@@ -134,5 +142,6 @@ document.addEventListener('mousemove', onTouchMove, false);
 document.addEventListener('touchend', onTouchEnd, false);
 document.addEventListener('mouseup', onTouchEnd, false);
 
+/*** initialize ***/
 init();
 resetPuzzlePiece();

@@ -17,6 +17,8 @@ body {
   color: var(--main-text);
   background-color: var(--main-bg);
   transition: color 200ms, background-color 200ms;
+  margin: 0;
+  padding: 10px;
 
   position: fixed;
   left: 0px;

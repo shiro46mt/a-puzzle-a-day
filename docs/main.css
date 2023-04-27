@@ -19,7 +19,6 @@
   margin: 10px auto 0;
   width: var(--board-size);
   height: var(--board-size);
-  position: relative;
   border: 1px solid var(--board-color);
   display: grid;
   grid-template-columns: repeat(7, 1fr);
