@@ -12,6 +12,8 @@ var dx = 0; // piece の左上を原点とした, クリック位置
 var dy = 0;
 var isClick = false;
 
+var initialState;
+
 function onTouchStart(event) {
   if (event.target.parentElement.classList.contains('puzzle-piece')) {
     event.preventDefault();
@@ -61,6 +63,8 @@ function onTouchEnd(event) {
         var newReverse = currentReverse;
         activePiece.setAttribute("data-rotation", newRotation);
       }
+      activePiece.setAttribute("data-state", (newRotation * newReverse / 90) + (1 - newReverse) * 3.5);
+
 
     } else {
       // ドラッグ -> 移動
@@ -93,6 +97,14 @@ function onTouchEnd(event) {
     activePiece = null;
     dx = 0;
     dy = 0;
+
+    if (isClear()) {
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.7 }
+      });
+    }
   }
 }
 
@@ -104,6 +116,8 @@ function init() {
 
   document.querySelector('#m' + m).classList.add("today");
   document.querySelector('#d' + d).classList.add("today");
+
+  initialState = 72340172846498303n + (1n << BigInt(m + Math.floor((m-1)/6) * 2 + 8)) + (1n << BigInt(d + Math.floor((d-1)/7) + 24));
 }
 
 function resetPuzzlePiece() {
@@ -113,6 +127,7 @@ function resetPuzzlePiece() {
     puzzlePieces[i].setAttribute("data-scale", groundPieceSizeRatio);
     puzzlePieces[i].setAttribute("data-rotation", 0);
     puzzlePieces[i].setAttribute("data-reverse", 1);
+    puzzlePieces[i].setAttribute("data-state", 0);
     puzzlePieces[i].setAttribute("data-pos", 0);
     setStyle(puzzlePieces[i]);
   }
@@ -126,8 +141,27 @@ function setStyle(element) {
   element.style.transform = "scale(" + (scale * reverse) + ", " + scale + ") rotate(" + rotation + "deg)";
 }
 
-function floor(x, origin) {
-  return Math.floor((x - origin + cellSize / 2) / cellSize) * cellSize + origin;
+const pieceInfo = [
+  [8623621632n,135200768n,25837175808n,251723776n,252182528n,25803489792n,17760256n,17247241728n],
+  [8623882752n,68091904n,17280795648n,251789312n,251920384n,8690729472n,34537472n,17247372288n],
+  [17247371776n,118226944n,17280664064n,51249152n,201785344n,8690861056n,235077632n,8623883264n],
+  [33689088n,134745600n,235407360n,235012608n,235407360n,235012608n,33689088n,134745600n],
+  [201590272n,34473984n,201590272n,34473984n,135135744n,100928512n,135135744n,100928512n],
+  [920064n,100795904n,658944n,100926976n,100795904n,658944n,100926976n,920064n],
+  [790016n,101057536n,919040n,33949184n,67503616n,920576n,101057024n,396800n],
+  [921088n,101058048n,921088n,101058048n,101058048n,921088n,101058048n,921088n],
+]
+
+function isClear() {
+  var boardState = initialState;
+  for (var i = 0; i < puzzlePieces.length; i++) {
+    var state = parseInt(puzzlePieces[i].getAttribute("data-state") || "0");
+    var pos = BigInt(parseInt(puzzlePieces[i].getAttribute("data-pos") || "0"));
+    if (pos == 0) return false;
+
+    boardState |= (pieceInfo[i][state] << (pos - 9n));
+  }
+  return boardState == (1n << 60n) - 1n;
 }
 
 /*** event listener ***/
