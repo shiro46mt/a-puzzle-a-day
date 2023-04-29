@@ -181,7 +181,7 @@ input[type="checkbox"] {
 
 .author a {
   text-decoration: none;
-  /* color: var(--main-text); */
+  color: var(--main-text);
 }
 
 /*** sns share ***/
