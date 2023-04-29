@@ -74,8 +74,67 @@
       </div>
     </div>
 
+    <div class="overlay" id="overlay-record">
+      <div class="overlay-window overlay-window-record">
+        <h2>記録</h2>
+        <div class="board" id="board-record">
+          <div class="board-cell link" id="rcd-m1" onclick="getRecordTable(1);">Jan</div>
+          <div class="board-cell link" id="rcd-m2" onclick="getRecordTable(2);">Feb</div>
+          <div class="board-cell link" id="rcd-m3" onclick="getRecordTable(3);">Mar</div>
+          <div class="board-cell link" id="rcd-m4" onclick="getRecordTable(4);">Apr</div>
+          <div class="board-cell link" id="rcd-m5" onclick="getRecordTable(5);">May</div>
+          <div class="board-cell link" id="rcd-m6" onclick="getRecordTable(6);">Jun</div>
+          <div class="board-cell null"></div>
+          <div class="board-cell link" id="rcd-m7" onclick="getRecordTable(7);">Jul</div>
+          <div class="board-cell link" id="rcd-m8" onclick="getRecordTable(8);">Aug</div>
+          <div class="board-cell link" id="rcd-m9" onclick="getRecordTable(9);">Sep</div>
+          <div class="board-cell link" id="rcd-m10" onclick="getRecordTable(10);">Oct</div>
+          <div class="board-cell link" id="rcd-m11" onclick="getRecordTable(11);">Nov</div>
+          <div class="board-cell link" id="rcd-m12" onclick="getRecordTable(12);">Dec</div>
+          <div class="board-cell null"></div>
+          <div class="board-cell" id="rcd-d1">1</div>
+          <div class="board-cell" id="rcd-d2">2</div>
+          <div class="board-cell" id="rcd-d3">3</div>
+          <div class="board-cell" id="rcd-d4">4</div>
+          <div class="board-cell" id="rcd-d5">5</div>
+          <div class="board-cell" id="rcd-d6">6</div>
+          <div class="board-cell" id="rcd-d7">7</div>
+          <div class="board-cell" id="rcd-d8">8</div>
+          <div class="board-cell" id="rcd-d9">9</div>
+          <div class="board-cell" id="rcd-d10">10</div>
+          <div class="board-cell" id="rcd-d11">11</div>
+          <div class="board-cell" id="rcd-d12">12</div>
+          <div class="board-cell" id="rcd-d13">13</div>
+          <div class="board-cell" id="rcd-d14">14</div>
+          <div class="board-cell" id="rcd-d15">15</div>
+          <div class="board-cell" id="rcd-d16">16</div>
+          <div class="board-cell" id="rcd-d17">17</div>
+          <div class="board-cell" id="rcd-d18">18</div>
+          <div class="board-cell" id="rcd-d19">19</div>
+          <div class="board-cell" id="rcd-d20">20</div>
+          <div class="board-cell" id="rcd-d21">21</div>
+          <div class="board-cell" id="rcd-d22">22</div>
+          <div class="board-cell" id="rcd-d23">23</div>
+          <div class="board-cell" id="rcd-d24">24</div>
+          <div class="board-cell" id="rcd-d25">25</div>
+          <div class="board-cell" id="rcd-d26">26</div>
+          <div class="board-cell" id="rcd-d27">27</div>
+          <div class="board-cell" id="rcd-d28">28</div>
+          <div class="board-cell" id="rcd-d29">29</div>
+          <div class="board-cell" id="rcd-d30">30</div>
+          <div class="board-cell" id="rcd-d31">31</div>
+          <div class="board-cell null"></div>
+          <div class="board-cell null"></div>
+          <div class="board-cell null"></div>
+          <div class="board-cell null"></div>
+        </div>
+
+        <div class="close-icon"><i class="fa-solid fa-xmark"></i></div>
+      </div>
+    </div>
+
     <div class="board-wrapper">
-      <div class="board">
+      <div class="board" id="board">
         <div class="board-cell" id="m1">Jan</div>
         <div class="board-cell" id="m2">Feb</div>
         <div class="board-cell" id="m3">Mar</div>
@@ -247,6 +306,7 @@
   <div id="footer-menu">
     |
     <a onclick="openInfo();">遊び方</a> |
+    <a onclick="openRecord();">記録</a> |
   </div>
   <div id="footer">&copy;2023 SHIRO</div>
 

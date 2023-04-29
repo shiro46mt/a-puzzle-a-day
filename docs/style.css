@@ -75,6 +75,7 @@ h1 {
 .links a {
   text-decoration: none;
   color: var(--sub-text);
+  cursor: pointer;
 }
 
 /*** mode switch ***/
@@ -150,13 +151,15 @@ input[type="checkbox"] {
 
 .close-icon {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 10px;
+  right: 10px;
+  padding: 6px;
   color: var(--sub-text);
+  cursor: pointer;
 }
 
 /* info */
-.overlay-window.overlay-window-info{
+.overlay-window.overlay-window-info {
   height: 290px;
 }
 
@@ -197,7 +200,7 @@ input[type="checkbox"] {
   padding: 0;
 }
 
-.fa-brands, .fa-solid{
+.fa-brands, .fa-solid {
   font-size: 24px;
   padding: 0;
 }
@@ -214,6 +217,12 @@ input[type="checkbox"] {
   color: #ffffff;
 }
 
+/* record */
+.overlay-window.overlay-window-record {
+  width: 320px;
+  height: 360px;
+}
+
 /*** footer ***/
 #footer, #footer-menu {
   font-size: 0.8em;
@@ -225,4 +234,5 @@ input[type="checkbox"] {
 #footer-menu a {
   text-decoration: none;
   color: var(--sub-text);
+  cursor: pointer;
 }

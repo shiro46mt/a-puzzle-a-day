@@ -5,7 +5,7 @@ const groundPieceSizeRatio = 0.4;
 var puzzlePieces = document.querySelectorAll('.puzzle-piece');
 var puzzleCells = document.querySelectorAll('.puzzle-cell:not(.null)');
 
-var board = document.querySelector('.board');
+var board = document.querySelector('#board');
 
 var activePiece = null;
 var dx = 0; // piece の左上を原点とした, クリック位置
@@ -99,6 +99,7 @@ function onTouchEnd(event) {
     dy = 0;
 
     if (isClear()) {
+      setClearRecord();
       confetti({
         particleCount: 100,
         spread: 80,
@@ -108,7 +109,66 @@ function onTouchEnd(event) {
   }
 }
 
+/*** record ***/
+const monthlyEmoji = ["🎍","🍫","🎎", "🌸","🎏","💠", "🎋","🎆","🎑", "🎃","🍁","🎄",]
+function getRecordTable(month) {
+  if (month == 0) {
+    const today = new Date();
+    month = today.getMonth()+1;
+  }
 
+  // 月の表示
+  for (var m=1; m<=12; m++) {
+    const cell = document.querySelector('#rcd-m' + m);
+    if (m == month) {
+      cell.classList.add("today");
+    } else {
+      cell.classList.remove("today");
+    }
+  }
+
+  // 日の表示
+  var record = getLocalStorageRecord(month);
+  for (var d=1; d<=31; d++) {
+    const cell = document.querySelector('#rcd-d' + d);
+    if ((record >> BigInt(d-1)) & 1n) {
+      cell.textContent = monthlyEmoji[month-1];
+      cell.classList.add("clear");
+    } else {
+      cell.textContent = d;
+      cell.classList.remove("clear");
+    }
+    // 小月
+    if ((d == 30 && month == 2) || (d == 31 && [2,4,6,9,11].includes(month))) {
+      cell.textContent = "";
+      cell.classList.add("null");
+    } else {
+      cell.classList.remove("null");
+    }
+  }
+}
+
+function setClearRecord() {
+  const today = new Date();
+  const m = today.getMonth()+1;
+  const d = today.getDate();
+
+  var record = getLocalStorageRecord(m);
+  var newRecord = record | (1n << BigInt(d-1));
+  setLocalStorageRecord(m, newRecord);
+
+  getRecordTable(m);
+}
+
+function getLocalStorageRecord(month) {
+  return BigInt(localStorage.getItem('apad-rcd-m'+month) || 0);
+}
+
+function setLocalStorageRecord(month, value) {
+  localStorage.setItem('apad-rcd-m'+month, value.toString());
+}
+
+/*** initialize ***/
 function init() {
   const today = new Date();
   const m = today.getMonth()+1;
@@ -118,6 +178,8 @@ function init() {
   document.querySelector('#d' + d).classList.add("today");
 
   initialState = 72340172846498303n + (1n << BigInt(m + Math.floor((m-1)/6) * 2 + 8)) + (1n << BigInt(d + Math.floor((d-1)/7) + 24));
+
+  getRecordTable(m);
 }
 
 function resetPuzzlePiece() {

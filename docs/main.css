@@ -111,3 +111,13 @@
 .puzzle-cell.null {
   visibility: hidden !important;
 }
+
+
+/* record */
+.board-cell.link {
+  text-decoration: underline;
+}
+
+.board-cell.clear {
+  font-size: 0.95rem;
+}
