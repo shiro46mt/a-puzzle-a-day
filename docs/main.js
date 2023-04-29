@@ -72,22 +72,23 @@ function onTouchEnd(event) {
 }
 
 function rotateReverseActivePiece() {
-  var currentReverse = parseInt(activePiece.getAttribute("data-reverse") || "1");
-  var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
+  var state = parseInt(activePiece.getAttribute("data-state") || "0");
+  var newState = (state + 1) % 8;
 
-  if ((currentRotation == 270 && currentReverse == 1) ||
-  (currentRotation == 0 && currentReverse == -1)) {
-    // 左右反転する
-    var newRotation = currentRotation;
-    var newReverse = currentReverse * -1;
-    activePiece.setAttribute("data-reverse", newReverse);
-  } else {
-    // 角度を90度回転させる
-    var newRotation = (currentRotation + 90 * currentReverse);
-    var newReverse = currentReverse;
-    activePiece.setAttribute("data-rotation", newRotation);
+  // state = {0, 1, 2, 3}
+  if (["piece4", "piece6"].includes(activePiece.id)) {
+    newState %= 4;
   }
-  activePiece.setAttribute("data-state", (newRotation * newReverse / 90) + (1 - newReverse) * 3.5);
+  // state = {0, 1, 6, 7}
+  else if (activePiece.id == "piece5") {
+    if (newState == 2) newState += 4;
+  }
+  // state = {0, 1}
+  else if (activePiece.id == "piece8") {
+    newState %= 2;
+  }
+
+  activePiece.setAttribute("data-state", newState);
 }
 
 function placeActivePiece(touch) {
@@ -97,11 +98,10 @@ function placeActivePiece(touch) {
     bounds.top < touch.pageY &&
     bounds.bottom > touch.pageY) {
 
-    var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
+    var state = parseInt(activePiece.getAttribute("data-state") || "0");
     // 2x3 のpieceでは回転時に半マスずれるため、offsetを設定する
     var posOffset = 0;
-    if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
-        currentRotation % 180 == 90) {
+    if (["piece6", "piece7", "piece8"].includes(activePiece.id) && (state % 2 == 1)) {
       posOffset = cellSize / 2;
     }
     var j = Math.floor((touch.pageX - dx - bounds.left + (cellSize / 2) + posOffset) / cellSize);
@@ -120,6 +120,29 @@ function placeActivePiece(touch) {
 
 
 /*** record ***/
+const pieceInfo = [
+  [8623621632n,135200768n,25837175808n,251723776n,17247241728n,252182528n,25803489792n,17760256n,],
+  [8623882752n,68091904n,17280795648n,251789312n,17247372288n,251920384n,8690729472n,34537472n,],
+  [17247371776n,118226944n,17280664064n,51249152n,8623883264n,201785344n,8690861056n,235077632n,],
+  [33689088n,134745600n,235407360n,235012608n,134745600n,235407360n,235012608n,33689088n,],
+  [201590272n,34473984n,201590272n,34473984n,100928512n,135135744n,100928512n,135135744n,],
+  [920064n,100795904n,658944n,100926976n,920064n,100795904n,658944n,100926976n,],
+  [790016n,101057536n,919040n,33949184n,396800n,67503616n,920576n,101057024n,],
+  [921088n,101058048n,921088n,101058048n,921088n,101058048n,921088n,101058048n,],
+]
+
+function isClear() {
+  var boardState = initialState;
+  for (var i = 0; i < puzzlePieces.length; i++) {
+    var state = parseInt(puzzlePieces[i].getAttribute("data-state") || "0");
+    var pos = BigInt(parseInt(puzzlePieces[i].getAttribute("data-pos") || "0"));
+    if (pos == 0) return false;
+
+    boardState |= (pieceInfo[i][state] << (pos - 9n));
+  }
+  return boardState == (1n << 60n) - 1n;
+}
+
 const monthlyEmoji = ["🎍","🍫","🎎", "🌸","🎏","💠", "🎋","🎆","🎑", "🎃","🍁","🎄",]
 function getRecordTable(month) {
   if (month == 0) {
@@ -178,6 +201,7 @@ function setLocalStorageRecord(month, value) {
   localStorage.setItem('apad-rcd-m'+month, value.toString());
 }
 
+
 /*** initialize ***/
 function init() {
   const today = new Date();
@@ -197,8 +221,6 @@ function resetPuzzlePiece() {
     puzzlePieces[i].style.left = '';
     puzzlePieces[i].style.top = '';
     puzzlePieces[i].setAttribute("data-scale", groundPieceSizeRatio);
-    puzzlePieces[i].setAttribute("data-rotation", 0);
-    puzzlePieces[i].setAttribute("data-reverse", 1);
     puzzlePieces[i].setAttribute("data-state", 0);
     puzzlePieces[i].setAttribute("data-pos", 0);
     setStyle(puzzlePieces[i]);
@@ -207,33 +229,16 @@ function resetPuzzlePiece() {
 
 function setStyle(element) {
   var scale = parseFloat(element.getAttribute("data-scale") || "0.5");
-  var reverse = parseInt(element.getAttribute("data-reverse") || "1");
-  var rotation = parseInt(element.getAttribute("data-rotation") || "0");
+  var state = parseInt(element.getAttribute("data-state") || "0");
+
+  var rotation = state * 90;
+  var reverse = 1;
+  if (state >= 4) {
+    rotation = (8 - state) * 90;
+    reverse = -1;
+  }
 
   element.style.transform = "scale(" + (scale * reverse) + ", " + scale + ") rotate(" + rotation + "deg)";
-}
-
-const pieceInfo = [
-  [8623621632n,135200768n,25837175808n,251723776n,252182528n,25803489792n,17760256n,17247241728n],
-  [8623882752n,68091904n,17280795648n,251789312n,251920384n,8690729472n,34537472n,17247372288n],
-  [17247371776n,118226944n,17280664064n,51249152n,201785344n,8690861056n,235077632n,8623883264n],
-  [33689088n,134745600n,235407360n,235012608n,235407360n,235012608n,33689088n,134745600n],
-  [201590272n,34473984n,201590272n,34473984n,135135744n,100928512n,135135744n,100928512n],
-  [920064n,100795904n,658944n,100926976n,100795904n,658944n,100926976n,920064n],
-  [790016n,101057536n,919040n,33949184n,67503616n,920576n,101057024n,396800n],
-  [921088n,101058048n,921088n,101058048n,101058048n,921088n,101058048n,921088n],
-]
-
-function isClear() {
-  var boardState = initialState;
-  for (var i = 0; i < puzzlePieces.length; i++) {
-    var state = parseInt(puzzlePieces[i].getAttribute("data-state") || "0");
-    var pos = BigInt(parseInt(puzzlePieces[i].getAttribute("data-pos") || "0"));
-    if (pos == 0) return false;
-
-    boardState |= (pieceInfo[i][state] << (pos - 9n));
-  }
-  return boardState == (1n << 60n) - 1n;
 }
 
 /*** event listener ***/
