@@ -42,62 +42,24 @@ function onTouchMove(event) {
 function onTouchEnd(event) {
   if (activePiece) {
     event.preventDefault();
-    activePiece.style.zIndex = 0;
-    var bounds = board.getBoundingClientRect();
     // タッチイベントとマウスイベントを区別する
     const touch = event.type === 'touchend' ? event.changedTouches[0] : event;
-    if (isClick) {
-      // シングルクリック -> 回転・反転
-      var currentReverse = parseInt(activePiece.getAttribute("data-reverse") || "1");
-      var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
 
-      if ((currentRotation == 270 && currentReverse == 1) ||
-          (currentRotation == 0 && currentReverse == -1)) {
-        // 左右反転する
-        var newRotation = currentRotation;
-        var newReverse = currentReverse * -1;
-        activePiece.setAttribute("data-reverse", newReverse);
-      } else {
-        // 角度を90度回転させる
-        var newRotation = (currentRotation + 90 * currentReverse);
-        var newReverse = currentReverse;
-        activePiece.setAttribute("data-rotation", newRotation);
-      }
-      activePiece.setAttribute("data-state", (newRotation * newReverse / 90) + (1 - newReverse) * 3.5);
+    // シングルクリック -> 回転・反転
+    if (isClick)
+      rotateReverseActivePiece();
+    // ドラッグ -> 移動
+    else
+      placeActivePiece(touch);
 
-
-    } else {
-      // ドラッグ -> 移動
-      if (bounds.left < touch.pageX &&
-          bounds.right > touch.pageX &&
-          bounds.top < touch.pageY &&
-          bounds.bottom > touch.pageY) {
-
-        var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
-        // 2x3 のpieceでは回転時に半マスずれるため、offsetを設定する
-        var posOffset = 0;
-        if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
-            currentRotation % 180 == 90) {
-          posOffset = cellSize / 2;
-        }
-        var j = Math.floor((touch.pageX - dx - bounds.left + (cellSize / 2) + posOffset) / cellSize);
-        var i = Math.floor((touch.pageY - dy - bounds.top + (cellSize / 2) - posOffset) / cellSize);
-        activePiece.style.left = j * cellSize + bounds.left - posOffset + 1 + 'px'; // 1px はborderの分
-        activePiece.style.top = i * cellSize + bounds.top + posOffset + 1 + 'px';
-        activePiece.setAttribute("data-pos", (i+1)*8 + (j+1));
-        activePiece.setAttribute("data-scale", 1);
-      } else {
-        activePiece.style.left = '';
-        activePiece.style.top = '';
-        activePiece.setAttribute("data-pos", 0);
-        activePiece.setAttribute("data-scale", groundPieceSizeRatio);
-      }
-    }
+    // 終了処理
     setStyle(activePiece);
+    activePiece.style.zIndex = 0;
     activePiece = null;
     dx = 0;
     dy = 0;
 
+    // クリア時処理
     if (isClear()) {
       setClearRecord();
       confetti({
@@ -108,6 +70,54 @@ function onTouchEnd(event) {
     }
   }
 }
+
+function rotateReverseActivePiece() {
+  var currentReverse = parseInt(activePiece.getAttribute("data-reverse") || "1");
+  var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
+
+  if ((currentRotation == 270 && currentReverse == 1) ||
+  (currentRotation == 0 && currentReverse == -1)) {
+    // 左右反転する
+    var newRotation = currentRotation;
+    var newReverse = currentReverse * -1;
+    activePiece.setAttribute("data-reverse", newReverse);
+  } else {
+    // 角度を90度回転させる
+    var newRotation = (currentRotation + 90 * currentReverse);
+    var newReverse = currentReverse;
+    activePiece.setAttribute("data-rotation", newRotation);
+  }
+  activePiece.setAttribute("data-state", (newRotation * newReverse / 90) + (1 - newReverse) * 3.5);
+}
+
+function placeActivePiece(touch) {
+  var bounds = board.getBoundingClientRect();
+  if (bounds.left < touch.pageX &&
+    bounds.right > touch.pageX &&
+    bounds.top < touch.pageY &&
+    bounds.bottom > touch.pageY) {
+
+    var currentRotation = parseInt(activePiece.getAttribute("data-rotation") || "0");
+    // 2x3 のpieceでは回転時に半マスずれるため、offsetを設定する
+    var posOffset = 0;
+    if (["piece6", "piece7", "piece8"].includes(activePiece.id) &&
+        currentRotation % 180 == 90) {
+      posOffset = cellSize / 2;
+    }
+    var j = Math.floor((touch.pageX - dx - bounds.left + (cellSize / 2) + posOffset) / cellSize);
+    var i = Math.floor((touch.pageY - dy - bounds.top + (cellSize / 2) - posOffset) / cellSize);
+    activePiece.style.left = j * cellSize + bounds.left - posOffset + 1 + 'px'; // 1px はborderの分
+    activePiece.style.top = i * cellSize + bounds.top + posOffset + 1 + 'px';
+    activePiece.setAttribute("data-pos", (i+1)*8 + (j+1));
+    activePiece.setAttribute("data-scale", 1);
+  } else {
+    activePiece.style.left = '';
+    activePiece.style.top = '';
+    activePiece.setAttribute("data-pos", 0);
+    activePiece.setAttribute("data-scale", groundPieceSizeRatio);
+  }
+}
+
 
 /*** record ***/
 const monthlyEmoji = ["🎍","🍫","🎎", "🌸","🎏","💠", "🎋","🎆","🎑", "🎃","🍁","🎄",]
