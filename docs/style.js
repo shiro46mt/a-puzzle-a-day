@@ -4,12 +4,12 @@ const closeIcons = document.querySelectorAll('.close-icon');
 
 /*** Set event listener ***/
 infoWindow.addEventListener("click", function (e) {
-  if (e.target == infoWindow || e.target.classList.contains('close-icon'))
+  if (e.target == infoWindow)
     infoWindow.classList.remove("is-open");
 });
 
 recordWindow.addEventListener("click", function (e) {
-  if (e.target == recordWindow || e.target.classList.contains('close-icon'))
+  if (e.target == recordWindow)
     recordWindow.classList.remove("is-open");
 });
 
