@@ -158,7 +158,7 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-/* info */
+/*** overlay - info ***/
 .overlay-window.overlay-window-info {
   height: 290px;
 }
@@ -217,10 +217,39 @@ input[type="checkbox"] {
   color: #ffffff;
 }
 
-/* record */
+/*** overlay - record ***/
 .overlay-window.overlay-window-record {
   width: 320px;
   height: 360px;
+}
+
+/*** overlay - hint ***/
+.overlay-window.overlay-window-hint {
+  width: 320px;
+  height: 360px;
+}
+.hint-ad {
+  height: 250px;
+  background-color: #ddd;
+  margin: 10px 0;
+}
+
+.loading-icon {
+  position: absolute;
+  top: 160px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  color: var(--sub-text);
+  z-index: 1010;
+  visibility: hidden;
+}
+.loading-icon.is-open {
+  visibility: visible;
+}
+
+.fa-spinner {
+  font-size: 40px;
 }
 
 /*** footer ***/

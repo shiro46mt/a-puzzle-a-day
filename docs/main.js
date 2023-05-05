@@ -16,6 +16,8 @@ var initialState;
 
 function onTouchStart(event) {
   if (event.target.parentElement.classList.contains('puzzle-piece')) {
+    if (event.target.parentElement.classList.contains("hint")) return;
+
     event.preventDefault();
     activePiece = event.target.parentElement;
     activePiece.style.zIndex = 1000;
@@ -93,6 +95,7 @@ function rotateReverseActivePiece() {
 
 function placeActivePiece(touch) {
   var bounds = board.getBoundingClientRect();
+  var pos;
   if (bounds.left < touch.pageX &&
     bounds.right > touch.pageX &&
     bounds.top < touch.pageY &&
@@ -106,16 +109,11 @@ function placeActivePiece(touch) {
     }
     var j = Math.floor((touch.pageX - dx - bounds.left + (cellSize / 2) + posOffset) / cellSize);
     var i = Math.floor((touch.pageY - dy - bounds.top + (cellSize / 2) - posOffset) / cellSize);
-    activePiece.style.left = j * cellSize + bounds.left - posOffset + 1 + 'px'; // 1px はborderの分
-    activePiece.style.top = i * cellSize + bounds.top + posOffset + 1 + 'px';
-    activePiece.setAttribute("data-pos", (i+1)*8 + (j+1));
-    activePiece.setAttribute("data-scale", 1);
+    pos = (i+1)*8 + (j+1);
   } else {
-    activePiece.style.left = '';
-    activePiece.style.top = '';
-    activePiece.setAttribute("data-pos", 0);
-    activePiece.setAttribute("data-scale", groundPieceSizeRatio);
+    pos = 0;
   }
+  setPosition(activePiece, pos);
 }
 
 
@@ -124,11 +122,11 @@ const pieceInfo = [
   [8623621632n,135200768n,25837175808n,251723776n,17247241728n,252182528n,25803489792n,17760256n,],
   [8623882752n,68091904n,17280795648n,251789312n,17247372288n,251920384n,8690729472n,34537472n,],
   [17247371776n,118226944n,17280664064n,51249152n,8623883264n,201785344n,8690861056n,235077632n,],
-  [33689088n,134745600n,235407360n,235012608n,134745600n,235407360n,235012608n,33689088n,],
-  [201590272n,34473984n,201590272n,34473984n,100928512n,135135744n,100928512n,135135744n,],
-  [920064n,100795904n,658944n,100926976n,920064n,100795904n,658944n,100926976n,],
+  [33689088n,134745600n,235407360n,235012608n,0n,0n,0n,0n,],
+  [201590272n,34473984n,0n,0n,0n,0n,100928512n,135135744n,],
+  [920064n,100795904n,658944n,100926976n,0n,0n,0n,0n,],
   [790016n,101057536n,919040n,33949184n,396800n,67503616n,920576n,101057024n,],
-  [921088n,101058048n,921088n,101058048n,921088n,101058048n,921088n,101058048n,],
+  [921088n,101058048n,0n,0n,0n,0n,0n,0n,],
 ]
 
 function isClear() {
@@ -211,6 +209,7 @@ function init() {
   document.querySelector('#m' + m).classList.add("today");
   document.querySelector('#d' + d).classList.add("today");
 
+  // 0,1,2,3,4,5,6,7,8,15,16,23,24,32,40,48,56
   initialState = 72340172846498303n + (1n << BigInt(m + Math.floor((m-1)/6) * 2 + 8)) + (1n << BigInt(d + Math.floor((d-1)/7) + 24));
 
   getRecordTable(m);
@@ -223,6 +222,7 @@ function resetPuzzlePiece() {
     puzzlePieces[i].setAttribute("data-scale", groundPieceSizeRatio);
     puzzlePieces[i].setAttribute("data-state", 0);
     puzzlePieces[i].setAttribute("data-pos", 0);
+    puzzlePieces[i].classList.remove("hint");
     setStyle(puzzlePieces[i]);
   }
 }
@@ -239,6 +239,31 @@ function setStyle(element) {
   }
 
   element.style.transform = "scale(" + (scale * reverse) + ", " + scale + ") rotate(" + rotation + "deg)";
+}
+
+function setPosition(element, pos) {
+  var bounds = board.getBoundingClientRect();
+  var state = parseInt(element.getAttribute("data-state") || "0");
+  // var pos = parseInt(element.getAttribute("data-pos") || "0");
+
+  if (pos > 0) {
+    // 2x3 のpieceでは回転時に半マスずれるため、offsetを設定する
+    var posOffset = 0;
+    if (["piece6", "piece7", "piece8"].includes(element.id) && (state % 2 == 1)) {
+      posOffset = cellSize / 2;
+    }
+    var i = Math.floor(pos / 8) - 1;
+    var j = pos % 8 - 1;
+    element.style.left = j * cellSize + bounds.left - posOffset + 1 + 'px'; // 1px はborderの分
+    element.style.top = i * cellSize + bounds.top + posOffset + 1 + 'px';
+    element.setAttribute("data-scale", 1);
+
+  } else {
+    element.style.left = '';
+    element.style.top = '';
+    element.setAttribute("data-scale", groundPieceSizeRatio);
+  }
+  element.setAttribute("data-pos", pos);
 }
 
 /*** event listener ***/

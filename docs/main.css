@@ -112,12 +112,41 @@
   visibility: hidden !important;
 }
 
+.puzzle-piece.hint .puzzle-cell {
+  background: linear-gradient(-45deg,
+    #fff6 25%, #0006 25%, #0006 50%, #fff6 50%, #fff6 75%,#0006 75%, #0006
+  );
+}
 
-/* record */
+/*** record ***/
 .board-cell.link {
   text-decoration: underline;
 }
 
 .board-cell.clear {
   font-size: 0.95rem;
+}
+
+/*** hint button ***/
+button {
+  display: block;
+  margin: 10px auto;
+  height: 30px;
+  width: 240px;
+  border-radius: 5px;
+  font-size: 1em;
+  font-family: inherit;
+  color: #333;
+  background-color: var(--theme-light);
+  border: 1px solid var(--theme-light);
+}
+
+button:hover {
+  background-color: #fff;
+  border: 1px solid var(--theme-light);
+}
+
+button.inactive {
+  background-color: #999;
+  border: 1px solid #999;
 }

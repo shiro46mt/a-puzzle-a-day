@@ -1,5 +1,6 @@
 const infoWindow = document.getElementById("overlay-info");
 const recordWindow = document.getElementById("overlay-record");
+const hintWindow = document.getElementById("overlay-hint");
 const closeIcons = document.querySelectorAll('.close-icon');
 
 /*** Set event listener ***/
@@ -13,10 +14,16 @@ recordWindow.addEventListener("click", function (e) {
     recordWindow.classList.remove("is-open");
 });
 
+hintWindow.addEventListener("click", function (e) {
+  if (e.target == hintWindow)
+  hintWindow.classList.remove("is-open");
+});
+
 for (var i = 0; i < closeIcons.length; i++) {
   closeIcons[i].addEventListener('click', function (e) {
     infoWindow.classList.remove("is-open");
     recordWindow.classList.remove("is-open");
+    hintWindow.classList.remove("is-open");
   });
 }
 
