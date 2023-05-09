@@ -219,18 +219,19 @@ input[type="checkbox"] {
 
 /*** overlay - record ***/
 .overlay-window.overlay-window-record {
-  width: 320px;
+  max-width: 320px;
   height: 360px;
 }
 
 /*** overlay - hint ***/
 .overlay-window.overlay-window-hint {
-  width: 320px;
+  max-width: 320px;
   height: 360px;
 }
 .hint-ad {
+  width: 300px;
   height: 250px;
-  background-color: #ddd;
+  background-color: #fff;
   margin: 10px 0;
 }
 
