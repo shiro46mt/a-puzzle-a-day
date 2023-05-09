@@ -167,6 +167,15 @@ function showHint() {
   setStyle(trgPiece);
 }
 
+function resetHint() {
+  // for (var i = 0; i < puzzlePieces.length; i++) {
+  //   puzzlePieces[i].classList.remove("hint");
+  //   setStyle(puzzlePieces[i]);
+  // }
+  hint = arr[randInt(arr.length)];
+  hintCount = 0;
+}
+
 function randInt(n) {
   // [0, n) の整数を返す
   return Math.floor(Math.random() * n);

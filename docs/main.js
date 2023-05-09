@@ -225,6 +225,7 @@ function resetPuzzlePiece() {
     puzzlePieces[i].classList.remove("hint");
     setStyle(puzzlePieces[i]);
   }
+  resetHint();
 }
 
 function setStyle(element) {
