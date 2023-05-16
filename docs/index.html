@@ -331,6 +331,17 @@
   <script src="style.js"></script>
   <script src="main.js"></script>
   <script src="solve.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(registration) {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function(err) {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
 
   <script type="text/javascript">
     var nend_params = {"media":72005,"site":368124,"spot":1087007,"type":1,"oriented":1};
