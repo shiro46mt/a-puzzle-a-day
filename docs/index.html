@@ -129,6 +129,15 @@
           <div class="board-cell null"></div>
         </div>
 
+        <details id="export-record">
+          <summary>エクスポート</summary>
+          <p>文字列をコピーし、メモ帳などに保存してください。インポートする時は、貼付後にボタンを押してください。</p>
+          <div>
+            <input type="text" id="stored-record" />
+            <input type="button" value="インポート" onclick="importRecord();">
+          </div>
+        </details>
+
         <div class="close-icon"><i class="fa-solid fa-xmark"></i></div>
       </div>
     </div>

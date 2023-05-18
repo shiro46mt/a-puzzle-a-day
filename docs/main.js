@@ -141,12 +141,13 @@ function isClear() {
   return boardState == (1n << 60n) - 1n;
 }
 
+var displayMonth = 0;
 const monthlyEmoji = ["🎍","🍫","🎎", "🌸","🎏","💠", "🎋","🎆","🎑", "🎃","🍁","🎄",]
-function getRecordTable(month) {
+function getRecordTable(month=0) {
   if (month == 0) {
-    const today = new Date();
-    month = today.getMonth()+1;
+    month = displayMonth;
   }
+  displayMonth = month;
 
   // 月の表示
   for (var m=1; m<=12; m++) {
@@ -199,6 +200,46 @@ function setLocalStorageRecord(month, value) {
   localStorage.setItem('apad-rcd-m'+month, value.toString());
 }
 
+/*** import/export record ***/
+const sep = '&';
+const storedRecordArea = document.querySelector('#stored-record');
+
+function importRecord() {
+  const storedRecordStr = storedRecordArea.value;
+  if (storedRecordStr == "") return;
+
+  const storedRecord = storedRecordStr.split(sep);
+  if (storedRecord.length != 12) return;
+
+  for (var m=1; m<=12; m++) {
+    const record = getLocalStorageRecord(m);
+    const newRecord = decodeBI(storedRecord[m-1]);
+    if (newRecord == record) continue;
+
+    setLocalStorageRecord(m, newRecord);
+    // console.log('#' + m + ": " + record);
+  }
+  getRecordTable(displayMonth);
+}
+
+function exportRecord() {
+  const storedRecord = [];
+  for (var m=1; m<=12; m++) {
+    const record = getLocalStorageRecord(m);
+    storedRecord.push(encodeBI(record));
+  }
+  storedRecordArea.value = storedRecord.join(sep);
+  // console.log(storedRecord.join(sep));
+}
+
+const radix = 36;
+function encodeBI(value) {
+  return value.toString(radix);
+}
+
+function decodeBI(value) {
+  return BigInt(parseInt(value, radix));
+}
 
 /*** initialize ***/
 function init() {

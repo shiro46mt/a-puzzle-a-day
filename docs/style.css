@@ -220,7 +220,27 @@ input[type="checkbox"] {
 /*** overlay - record ***/
 .overlay-window.overlay-window-record {
   max-width: 320px;
-  height: 360px;
+  height: 380px;
+  transition: height 200ms;
+}
+
+.details-open .overlay-window.overlay-window-record {
+  height: 480px;
+  /* transform: translate(0, 50px); */
+}
+
+details {
+  margin: 10px;
+}
+
+summary {
+  text-align: left;
+}
+
+details p {
+  margin: 5px;
+  text-align: left;
+  font-size: 0.9em;
 }
 
 /*** overlay - hint ***/

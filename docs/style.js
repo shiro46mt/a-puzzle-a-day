@@ -35,6 +35,18 @@ function openRecord() {
   recordWindow.classList.add("is-open");
 }
 
+const detailsElement = document.getElementById("export-record");
+const recordElement = document.getElementById("stored-record");
+detailsElement.addEventListener("toggle", function() {
+  if (this.open) {
+    exportRecord();
+    recordWindow.classList.add("details-open");
+    recordElement.select();
+  } else {
+    recordWindow.classList.remove("details-open");
+  }
+});
+
 /*** dark mode ***/
 const checkToggle = document.getElementById('js_mode_toggle');
 const isLight = window.matchMedia('(prefers-color-scheme: light)').matches;
