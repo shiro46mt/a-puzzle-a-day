@@ -1,3 +1,4 @@
+const version = '20230525'
 var CACHE_NAME = 'A-Puzzle-A-Day';
 var urlsToCache = [
     'index.html',
